@@ -1,34 +1,35 @@
-#define inu A0      //wejscie analogowe 0 to wczytywane napiecie
+#define inu A0      //wejscie analogowe 0 to wczytywane napiecie - przypisaniu A0 nazwy inu
 
-int uint;
-float ureal;
-const float kat = 3600.0/1023; 
-const long double res=5.0/1023;
-void setup() 
+int uint;           //deklaracja zmiennej typu integer nazwanej uint
+float ureal;        //deklaracja zmiennej typu float nazwanej ureal
+const float kat = 3600.0/1023;  //ustawienie stałej kąt pomaga przeliczać wczytywane wartości int na kąt obrotu
+const long double res=5.0/1023; // ustawienie zmiennej res - pomaha przeliczać wczytywane wartości int na wartość w voltach
+
+void setup() //funkcja wykonująca się na starcie programu
 {
   // put your setup code here, to run once:
-  Serial.begin(9600);
-  analogReference(DEFAULT);
-  pinMode(inu, INPUT);
+  Serial.begin(9600);                //ustala prędkości transmisji na 9600
+  analogReference(DEFAULT);          //konfiguracja napięcia odniesienia dla wejściowego przetwornika - ustawiona na domyślną
+  pinMode(inu, INPUT);              //konfiguracja portu - ustawiony inu jako wejście
 }
 
-void loop() 
+void loop()   //funkcja powtarzająca się przez cały czas pracy programu
 {
   // put your main code here, to run repeatedly:
 
-  uint=analogRead(inu);
-  Serial.print("wartosc wczytana u int : ");
-  Serial.println(uint);
+  uint=analogRead(inu);                       //ustawienie wartości zmiennej uint na wartość zczytywaną z portu
+  Serial.print("wartosc wczytana u int : ");  // wypisanie tekstu na ekranie
+  Serial.println(uint);                       //wypisanie wartości uint na ekranie
   //Zadanie 3 
-  Serial.print("wartosc wczytana w V : ");
-  Serial.println(double(uint*res));
+  Serial.print("wartosc wczytana w V : ");    // wypisanie tekstu na ekranie
+  Serial.println(double(uint*res));           // wypisanie wartości w woltach na ekranie 
   //Zadanie 4
-  Serial.print("Kat obrotu: ");
-  Serial.println(uint*kat);
+  Serial.print("Kat obrotu: ");                // wypisanie tekstu na ekranie
+  Serial.println(uint*kat);                    //wypisanie kąta obrotu na ekranie przyjmującego 0 za 0 stopnie 
   //Zadanie 5 
-  Serial.print("Koder Bezwgledny: ");
-  Serial.println((uint-511.5)*kat);
-  delay(500);
+  Serial.print("Koder Bezwgledny: ");          // wypisanie tekstu na ekranie
+  Serial.println((uint-511.5)*kat);            //Wypisanie kąta obrotu przyjmującego połowę zakresu jako wartość 0 
+  delay(500);                                  //opóźnienie powtórzenia funkcji  w milisekundach    
  
 }
 
